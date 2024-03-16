@@ -6,9 +6,9 @@ import Countries from "../components/Countries";
 const Home = () => {
   return (
     <div>
-      <Logo />
-      <Navigation />
-      <Countries />
+      <Logo></Logo>
+      <Navigation></Navigation>
+      <Countries></Countries>
     </div>
   );
 };
