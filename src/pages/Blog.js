@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../components/Logo";
 import Navigation from "../components/Navigation";
+import axios from "axios";
+import Article from "../components/Article";
 
 const Blog = () => {
   // Variable en react on utilise le state
   const [content, setcontent] = useState("");
+  const [blogData, setBlogData] = useState([]);
   const [error, setError] = useState(false);
 
+  const getData = () => {
+    axios
+      .get("http://localhost:3004/articles")
+      .then((res) => setBlogData(res.data));
+  };
+
+  useEffect(() => getData(), []);
   // empécher le formulaire par default de recherger la pages inutilement !
   const handleSubmit = (e) => {
     e.prenventDefault();
@@ -14,6 +24,8 @@ const Blog = () => {
     if (content.length < 20) {
       setError(true);
     } else {
+      //! 50min piles
+      axios.post("");
       setError(false);
     }
   };
@@ -36,6 +48,13 @@ const Blog = () => {
         {error && <span>Veuillez entrer un minimum de 20 caractère</span>}
         <input type="submit" value="Envoyer" />
       </form>
+      <ul>
+        {blogData
+          .sort((a, b) => b.date - a.date)
+          .map((article) => (
+            <Article key={article.id} article={article} />
+          ))}
+      </ul>
     </div>
   );
 };
