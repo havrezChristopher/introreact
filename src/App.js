@@ -9,6 +9,7 @@ import Blog from "./pages/Blog";
 function App() {
   return (
     <BrowserRouter>
+      {/* vercel Pour les donnée annalitique du site web voir doc pour personaliser !  https://vercel.com/docs/analytics*/}
       <Analytics />
       <Routes>
         <Route path="/" element={<Home />} />
