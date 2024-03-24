@@ -12,20 +12,25 @@ const Blog = () => {
 
   const getData = () => {
     axios
-      .get("http://localhost:3004/articles")
+      .get("http://localhost:3001/articles")
       .then((res) => setBlogData(res.data));
   };
 
   useEffect(() => getData(), []);
   // empécher le formulaire par default de recherger la pages inutilement !
   const handleSubmit = (e) => {
-    e.prenventDefault();
+    e.preventDefault();
 
     if (content.length < 20) {
       setError(true);
     } else {
       //! 50min piles
-      axios.post("");
+      axios.post("http://localhost:3001/articles", {
+        author: "Teste D author",
+        content,
+        date: Date.now(),
+      });
+
       setError(false);
     }
   };
@@ -45,7 +50,7 @@ const Blog = () => {
           onChangeCapture={(e) => setcontent(e.target.value)}
         ></textarea>
         {/* champs conditionnel  */}
-        {error && <span>Veuillez entrer un minimum de 20 caractère</span>}
+        {error && <p>Veuillez entrer un minimum de 20 caractère </p>}
         <input type="submit" value="Envoyer" />
       </form>
       <ul>
